@@ -157,4 +157,11 @@ RUN python -m slicer_cli_web.cli_list_entrypoint TrainNetwork --help
 RUN python -m slicer_cli_web.cli_list_entrypoint ExtractFeaturesFromAnnotations --help
 RUN python -m slicer_cli_web.cli_list_entrypoint IngestAperioXML --help
 
+ARG UNAME=testuser
+ARG UID=1001
+ARG GID=1001
+RUN groupadd -g $GID -o $UNAME
+RUN useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
+USER $UNAME
+
 ENTRYPOINT ["/bin/bash", "docker-entrypoint.sh"]
